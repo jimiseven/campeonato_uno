@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 14-10-2024 a las 22:11:46
+-- Tiempo de generación: 16-10-2024 a las 00:29:12
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -66,8 +66,6 @@ CREATE TABLE `jugador` (
 --
 
 INSERT INTO `jugador` (`cod_j`, `ci`, `nombre`, `paterno`, `materno`, `fechaNac`, `sexo`, `codEquipo`) VALUES
-(1, 1123, 'Pedro', 'Teran', 'Pereira', '2000-08-21', 'm', 1),
-(2, 147, 'jose', 'juarez', 'jaillita', '2024-09-13', 'M', 3),
 (3, 8963, 'Alicia', 'arnez', 'Arce', '2024-09-05', 'F', 1),
 (6, 987654, 'Peter', 'Maldonado', 'Caceres', '2024-08-28', 'M', 3),
 (7, 989898, 'Luisa', 'Lima', 'Lima', '2024-08-27', 'F', 3),
@@ -78,7 +76,11 @@ INSERT INTO `jugador` (`cod_j`, `ci`, `nombre`, `paterno`, `materno`, `fechaNac`
 (12, 852369, 'lorito Real', 'loro', 'lara', '2024-08-26', 'M', 1),
 (13, 1111111, 'Juan', 'Jaramillo', 'Jaimes', '2024-08-26', 'M', 2),
 (14, 852963, 'Norman', 'Nina', 'Nogales', '2024-09-30', 'M', 2),
-(15, 852963, 'Nicolas', 'Nina', 'Nava', '2024-09-30', 'M', 2);
+(15, 852963, 'Nicolas', 'Nina', 'Nava', '2024-09-30', 'M', 2),
+(16, 7852145, 'Filemon', 'Flores', 'Fuentes', '2024-09-30', 'M', 3),
+(17, 654654, 'gino', 'tor', 'per', '2024-10-09', 'M', 1),
+(18, 685968798, 'juan', 'mora', 'mons', '2024-10-02', 'M', 1),
+(19, 3452345, 'mons', 'mars', 'mas', '2024-10-04', 'F', 2);
 
 -- --------------------------------------------------------
 
@@ -124,14 +126,17 @@ INSERT INTO `rel_ju_po` (`cod_ju_po`, `cod_juga`, `cod_posi`) VALUES
 (16, 12, 4),
 (18, 13, 2),
 (19, 13, 3),
-(20, 2, 1),
-(21, 2, 2),
 (22, 14, 1),
 (23, 14, 2),
 (24, 15, 1),
 (25, 15, 2),
 (26, 7, 3),
-(27, 7, 4);
+(27, 7, 4),
+(28, 16, 1),
+(29, 16, 2),
+(30, 17, 1),
+(31, 18, 1),
+(32, 19, 1);
 
 --
 -- Índices para tablas volcadas
@@ -161,7 +166,8 @@ ALTER TABLE `posicion`
 --
 ALTER TABLE `rel_ju_po`
   ADD PRIMARY KEY (`cod_ju_po`),
-  ADD KEY `cod_juga` (`cod_juga`);
+  ADD KEY `cod_juga` (`cod_juga`),
+  ADD KEY `rel_ju_po_ibfk_2` (`cod_posi`);
 
 --
 -- AUTO_INCREMENT de las tablas volcadas
@@ -171,13 +177,13 @@ ALTER TABLE `rel_ju_po`
 -- AUTO_INCREMENT de la tabla `equipo`
 --
 ALTER TABLE `equipo`
-  MODIFY `codEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `codEquipo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `jugador`
 --
 ALTER TABLE `jugador`
-  MODIFY `cod_j` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `cod_j` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de la tabla `posicion`
@@ -189,7 +195,7 @@ ALTER TABLE `posicion`
 -- AUTO_INCREMENT de la tabla `rel_ju_po`
 --
 ALTER TABLE `rel_ju_po`
-  MODIFY `cod_ju_po` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `cod_ju_po` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- Restricciones para tablas volcadas
