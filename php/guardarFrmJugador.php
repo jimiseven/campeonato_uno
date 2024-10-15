@@ -1,25 +1,32 @@
 <?php
-    $conexion=mysqli_connect('localhost','root','','campeonato');
-    $car=$_GET['cedula'];
-    $nom=$_GET['nombre'];
-    $pat=$_GET['ape_pat'];
-    $mat=$_GET['ape_mat'];
-    $fec=$_GET['fecha_nac'];
-    $sex=$_GET['sexo'];
-    $eq=$_GET['equi'];
-    $po=$_GET['posicion'];
-    $insJug="insert into jugador(ci,nombre,paterno,materno,fechaNac,sexo,codEquipo) 
-    values('$car','$nom','$pat','$mat','$fec','$sex','$eq')";
+    // Conexión a la base de datos
+    $conexion = mysqli_connect('localhost', 'root', '', 'campeonato');
 
-    //echo "<br>la consulta insetar Jugandor es : $insJug <br>";
-    mysqli_query($conexion,$insJug);
-    //despues de ejecutar insert, recuperaremos el ultimo cod_j generado en la insercion
-    $id_jug_insertado=mysqli_insert_id($conexion);
-    foreach($_GET['posicion'] as $posiciones){
-        echo "entra al foreach";
-            $consulta="insert into rel_ju_po set cod_posi=$posiciones, cod_juga=$id_jug_insertado";
-            mysqli_query($conexion,$consulta);
+    // Recoger los datos del formulario
+    $car = $_GET['cedula'];
+    $nom = $_GET['nombre'];
+    $pat = $_GET['ape_pat'];
+    $mat = $_GET['ape_mat'];
+    $fec = $_GET['fecha_nac'];
+    $sex = $_GET['sexo'];
+    $eq = $_GET['equi'];
+    $po = $_GET['posicion']; // Posiciones seleccionadas (array)
+
+    // Insertar los datos del jugador en la tabla jugador
+    $insJug = "INSERT INTO jugador(ci, nombre, paterno, materno, fechaNac, sexo, codEquipo) 
+               VALUES('$car', '$nom', '$pat', '$mat', '$fec', '$sex', '$eq')";
+    mysqli_query($conexion, $insJug);
+
+    // Recuperar el último ID del jugador insertado
+    $id_jug_insertado = mysqli_insert_id($conexion);
+
+    // Insertar las posiciones del jugador en la tabla rel_ju_po
+    foreach($po as $posiciones) {
+        $consulta = "INSERT INTO rel_ju_po (cod_posi, cod_juga) VALUES ($posiciones, $id_jug_insertado)";
+        mysqli_query($conexion, $consulta);
     }
-    echo "<br>Insertaste un nuevo Jugador<br><br>
-    <a href='listarJugador.php'>Listar Jugador</a> ";
+
+    // Redirigir a listarJugador.php después de insertar los datos
+    header("Location: listarJugador.php");
+    exit(); // Importante detener el script aquí después de la redirección
 ?>
